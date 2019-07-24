@@ -2,6 +2,7 @@
 {% block content %}
 <div class="content-section">
     <form method="POST" action="">
+        <div class="card">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">{{ legend }}</legend>
@@ -16,6 +17,10 @@
                     </div>
                 {% else %}
                     {{ form.title(class="form-control form-control-lg") }}
+                    <div>
+                        <label for="url">Enter an https:// URL:</label>
+                        <input type="url" name="url" id="url" placeholder="https://example.com" pattern="https://.*" size="30" required>
+                    </div>
                 {% endif %}
             </div>
             <div class="form-group">
@@ -35,6 +40,7 @@
         <div class="form-group">
             {{ form.submit(class="btn btn-outline-info") }}
         </div>
+    </div>
     </form>
 </div>
 {% endblock content %}

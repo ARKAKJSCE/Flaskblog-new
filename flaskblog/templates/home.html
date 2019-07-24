@@ -1,16 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
     {% for post in posts.items %}
+    <div class="card" style="background-image:url('../static/images/logo.png');">
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{url_for('static', filename='profile_pics/' + post.author.image_file) }}">
-          <div class="media-body">
+          <div class="card-body media-body bg-secondary text-white" style="border-radius:100px;">
             <div class="article-metadata">
               <small class="text-muted">{{ post.date_posted }}</small>
             </div>
+            
             <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
+     </div>   
     {% endfor %}
     {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}

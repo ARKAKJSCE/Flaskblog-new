@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+    body {
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .btn {
+      width: 25px;
+      height: 25px;
+      display: inline-block;
+      cursor: pointer;
+      margin: 0;
+      padding: 0;
+      border: 1px solid white;
+    }
+    footer {
+    position: fixed;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+  }
+    </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,32 +37,88 @@
     {% else %}
         <title>Blog</title>
     {% endif %}
-    <script>
+    <!-- <script>
       function changeColor1() {document.body.style.backgroundColor = "red" }
       function changeColor2() {document.body.style.backgroundColor = "blue" }
       function changeColor3() {document.body.style.backgroundColor = "green" }
+  </script> -->
+
+  <script>
+  var setCookie = function (n, val) {
+    var exdays = 30;
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = n + "=" + val + "; " + expires;
+};
+
+var getCookie = function (n) {
+    var name = n + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+};
+
+document.onclick = function (e) {
+    if (e.target.className == 'btn') {
+        var favColor = e.target.style.backgroundColor;
+        setCookie('color', favColor);
+        document.body.style.backgroundColor = favColor;
+        console.log(favColor);
+    }
+};
+
+window.onload = function () {
+    var favColor = document.body.style.backgroundColor;
+    var color = getCookie('color');
+    if (color === '') {
+        document.body.style.backgroundColor = favColor;
+    } else {
+      document.body.style.backgroundColor = color;
+    }
+};
+  
   </script>
+
 </head>
 <body>
+  
     <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <nav class="navbar navbar-dark bg-primary fixed-top">
         <div class="container">
-          <a class="navbar-brand mr-4" href="/">Blog</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+          <a class="navbar-brand mr-4" href="/"><img src="../static/images/logo.png" style="border-radius: 50%;" alt="mdb logo" height="30" class="d-inline-block align-top"> Blog</a>
+          <button class="navbar-toggler" style="color: white;" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="color: white;"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{{ url_for('main.home') }}">Home</a>
-              <a class="nav-item nav-link" href="{{ url_for('main.about') }}">About</a>
+              <a class="nav-link"style="color:white;" href="{{ url_for('main.home') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
               <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Colours
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                  <button class="dropdown-item" type="button" onclick="changeColor1();">Change Background to Red</button>
+                  <!-- <button class="dropdown-item" type="button" onclick="changeColor1();">Change Background to Red</button>
                   <button class="dropdown-item" type="button" onclick="changeColor2();">Change Background to Blue</button>
-                  <button class="dropdown-item" type="button" onclick="changeColor3();">Change Background to Green</button>
+                  <button class="dropdown-item" type="button" onclick="changeColor3();">Change Background to Green</button> -->
+
+                  <span class="btn" style="background-color: red;"></span>
+                  <span class="btn" style="background-color: gray;"></span>
+                  <span class="btn" style="background-color: greenyellow;"></span>
+                  <span class="btn" style="background-color: blue;"></span>
+                  <span class="btn" style="background-color: #66f7ff;"></span>
+                  <!-- <span class="btn" style="background-color: #ff00f5;"></span>
+                  <span class="btn" style="background-color: #fefdff;"></span>
+                  <span class="btn" style="background-color: #000000;"></span>
+                  <span class="btn" style="background-color: rgba(0, 0, 0, 0.4);"></span> -->
+
                 </div>
               </div>
             </div>
@@ -83,5 +161,19 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<!-- Footer -->
+<footer class="page-footer font-small blue fixed-bottom" style="margin-top:40px;">
+
+  
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">Developed or Designed by ARKA © 2019 Copyright ARKA:
+    <a href="/"> My First Blog In Flask</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->    
 </body>
 </html>
