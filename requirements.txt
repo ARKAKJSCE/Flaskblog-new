@@ -30,7 +30,7 @@ MarkupSafe==1.1.1
 mccabe==0.6.1
 numpy==1.16.4
 pefile==2019.4.18
-Pillow==6.0.0
+Pillow==9.0.0
 PyAutoGUI==0.9.44
 pycodestyle==2.5.0
 pycparser==2.19
